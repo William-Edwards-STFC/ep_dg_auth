@@ -55,7 +55,9 @@ nvm install 14.18.2
 
 ## Configuration
 
-Enable requiring authorization and authentication.
+Enable requiring authorization and authentication in etherpad settings.json.
+```
 poetry run python -m datagateway_api.src.main
-
+```
+Use this link to get the correct version of node https://learnubuntu.com/update-node-js/?utm_content=cmp-true
 
