@@ -1,13 +1,13 @@
-# Etherpad lite ICAT+ authentication and authorization
+# Etherpad lite Datagateway-API authentication and authorization
 
-This plugin, based on the sessionId passed by query param, authenticates and authorizes an user. The authorization is based on the permissions to the logbook via icatplus
+This plugin, based on the sessionId passed by query param, authenticates and authorizes an user. The authorization is based on the permissions to the logbook via datagateway-api
 
 
 ## Plugin installation
 
 In your etherpad-lite dir:
 
-    npm install ep_icatplus_auth
+    npm install ep_icat_auth
 
 Add to settings.json:
 
@@ -55,5 +55,7 @@ nvm install 14.18.2
 
 ## Configuration
 
-Copy the settings.json into the etherpad-lite folder and adapt it to your needs
+Enable requiring authorization and authentication.
+poetry run python -m datagateway_api.src.main
+
 
