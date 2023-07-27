@@ -461,8 +461,8 @@
    */
 
   "users": {
-    "icatplus": {
-      "server": "https://icatplus.esrf.fr"
+    "icat": {
+      "server": "http://172.16.112.249:5000"
       //"server": "http://localhost:8000"
     },
     "admin": {

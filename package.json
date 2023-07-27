@@ -1,12 +1,12 @@
 {
-  "name": "ep_icatplus_auth",
+  "name": "ep_icat_auth",
   "description": "Hooks into etherpad lite auth to provide ICAT+ authentication based on investigations",
   "author": "Alejandro de Maria",
-  "version": "0.0.5",
+  "version": "0.3.5",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antolinos/ep_icatplus_auth.git"
+    "url": "git+https://github.com/William-Edwards-STFC/ep_icat_auth.git"
   },
   "dependencies": {
     "axios": "0.18.1",
