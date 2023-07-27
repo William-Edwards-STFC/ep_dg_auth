@@ -60,10 +60,16 @@ Enable requiring authorization and authentication in etherpad settings.json.
 poetry run python -m datagateway_api.src.main
 ```
 Use this link to get the correct version of node https://learnubuntu.com/update-node-js/?utm_content=cmp-true
+```
 https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-20-04-1
+```
 https://serverfault.com/questions/536576/nginx-how-do-i-forward-an-http-request-to-another-port
+```
 https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
+```
 https://etherpad.org/doc/v1.3.0/#index_overview
+```
 https://louisroyer.github.io/tutorial/2019/09/12/migrate-etherpad-lite-dirtydb-to-postgres-debian-buster.html
-
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04
+```
 use node version 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
