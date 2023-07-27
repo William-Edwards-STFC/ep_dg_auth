@@ -65,3 +65,5 @@ https://serverfault.com/questions/536576/nginx-how-do-i-forward-an-http-request-
 https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
 https://etherpad.org/doc/v1.3.0/#index_overview
 https://louisroyer.github.io/tutorial/2019/09/12/migrate-etherpad-lite-dirtydb-to-postgres-debian-buster.html
+
+use node version 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
