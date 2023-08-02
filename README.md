@@ -142,5 +142,11 @@ export PATH="~/.local/bin:$PATH"
 source ~/.bashrc
 Restart your terminal
 poetry install
+```
 
+```
+git clone https://github.com/ral-facilities/datagateway.git
+sudo npm install -g yarn
+yarn install
+yarn datagateway-dataview
 ```
