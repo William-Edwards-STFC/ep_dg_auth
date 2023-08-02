@@ -128,4 +128,19 @@ sudo systemctl restart nginx
 Save the configuration file and restart Nginx to apply the changes
 
 If you are using ssh through visual studio and have set the port forwarding protocol to https you must disable this before as it will conflict
+```
+Installing datagateway api
+git clone https://github.com/ral-facilities/datagateway-api.git
+curl https://pyenv.run | bash
+export PATH="~/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+sudo apt update
+sudo apt install build-essential zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev liblzma-dev libffi-dev findutils
+curl -sSL https://install.python-poetry.org | python3 -
+export PATH="~/.local/bin:$PATH"
+source ~/.bashrc
+Restart your terminal
+poetry install
 
+```
