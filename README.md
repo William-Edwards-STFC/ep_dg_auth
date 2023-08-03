@@ -1,6 +1,6 @@
 # Etherpad lite Datagateway-API authentication and authorization
 
-This plugin, based on the sessionId passed by query param, authenticates and authorizes an user. The authorization is based on the permissions to the logbook via datagateway-api
+This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
 
 ## Plugin installation
@@ -13,15 +13,16 @@ Add to settings.json:
 
 ```
 "users": {
-    "icat": {
+    "dgserver": {
         "server": "https://datagateway.server.com"
     },
 }
+Change authentication and authorization settings to true depending on which hooks you will be using.
 ```
 
 ## Integration on the client
 
-It is supposed to be used inside an iframe:
+It is supposed to be used inside an iframe on the same site to use the Lax cookie otherwise a reverse proxy is required and the cookie must be set to none in etherpad settings:
 
 ```
               <div>
@@ -38,42 +39,21 @@ It is supposed to be used inside an iframe:
 
 ## Installation
 
-Etherpad can be fully installed by following the next recipe:
+Etherpad can be fully installed by doing the following:
 ```
 git clone --branch master https://github.com/ether/etherpad-lite.git &&
 cd etherpad-lite &&
-npm install --legacy-peer-deps ep_headings2 ep_markdown ep_comments_page ep_align ep_font_color ep_embedded_hyperlinks2 ep_icat_auth ep_auth_session &&
+npm install --legacy-peer-deps ep_icat_auth ep_auth_session &&
 ./bin/run.sh
 
 ```
 
 I did experience problems with the latest version of node. I work around the issue by installing the version 14.18.2 via nvm
+
+Use node version at least 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
 ```
 nvm install 14.18.2
 ```
-
-## Configuration
-
-### Enable requiring authorization and authentication in etherpad settings.json.
-
-### poetry run python -m datagateway_api.src.main
-
-### Use this link to get the correct version of node https://learnubuntu.com/update-node-js/?utm_content=cmp-true
-
-### https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-20-04-1
-
-### https://serverfault.com/questions/536576/nginx-how-do-i-forward-an-http-request-to-another-port
-
-### https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
-
-### https://etherpad.org/doc/v1.3.0/#index_overview
-
-### https://louisroyer.github.io/tutorial/2019/09/12/migrate-etherpad-lite-dirtydb-to-postgres-debian-buster.html
-
-### https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04
-
-### use node version 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
-
 ## This is a guide for self signed certificates for developing
 
 Generate private key
@@ -142,6 +122,7 @@ export PATH="~/.local/bin:$PATH"
 source ~/.bashrc
 Restart your terminal
 poetry install
+poetry run python -m datagateway_api.src.main
 ```
 
 ```
@@ -150,3 +131,9 @@ sudo npm install -g yarn
 yarn install
 yarn datagateway-dataview
 ```
+### Helpful Links
+```
+Use this link to get the correct version of node https://learnubuntu.com/update-node-js/?utm_content=cmp-true
+Reverse proxy help https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
+Etherpad documentation https://etherpad.org/doc/v1.3.0/#index_overview
+Installing postgresql on your developer instance https://louisroyer.github.io/tutorial/2019/09/12/migrate-etherpad-lite-dirtydb-to-postgres-debian-buster.html
