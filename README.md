@@ -68,15 +68,15 @@ sudo ufw allow 'Nginx HTTP'
 Generate private key
 
 ```
-openssl genpkey -algorithm RSA -out /path/to/private.key
+sudo openssl genpkey -algorithm RSA -out /path/to/private.key
 ```
 
 Generate CSR (Certificate Signing Request) and Self-Signed Certificate
 
 ```
-openssl req -new -key /path/to/private.key -out /path/to/certificate.csr
+sudo openssl req -new -key /path/to/private.key -out /path/to/certificate.csr
 
-openssl x509 -req -days 365 -in /path/to/certificate.csr -signkey /path/to/private.key -out /path/to/certificate.crt
+sudo openssl x509 -req -days 365 -in /path/to/certificate.csr -signkey /path/to/private.key -out /path/to/certificate.crt
 
 Please put your server IP in "Common Name" when asked everything else can be left blank
 ```
