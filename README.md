@@ -10,7 +10,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 Restart terminal or open a new one
 nvm --version       <------ Check that this returns a value before proceeding
 nvm install node
-nvm install 20
+nvm install 14
+nvm use 14
 node --version      <------ Check that this returns a value before proceeding
 ```
 
@@ -96,6 +97,14 @@ sudo mv private.key /etc/nginx/keys
 Configure Nginx:
 
 Edit the Nginx configuration file, which is usually located at /etc/nginx/nginx.conf or in a separate file inside /etc/nginx/conf.d/ or /etc/nginx/sites-available/.
+
+```
+sudo iptables -A ufw-user-input -p tcp -m tcp --dport 443 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p udp -m udp --dport 443 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p tcp -m tcp --dport 3000 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p udp -m udp --dport 3000 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p tcp -m tcp --dport 9001 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p udp -m udp --dport 9001 -j ACCEPT
 
 Add the following server block:
 
