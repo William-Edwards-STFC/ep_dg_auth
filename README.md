@@ -172,7 +172,7 @@ Please point this to an ICAT instance
 
 ```
 git clone https://github.com/ral-facilities/datagateway.git
-sudo npm install -g yarn
+npm install -g yarn
 cd datagateway
 yarn install
 yarn datagateway-dataview
