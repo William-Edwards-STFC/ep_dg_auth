@@ -143,6 +143,23 @@ Save the configuration file and restart Nginx to apply the changes
 
 If you are using ssh through visual studio and have set the port forwarding protocol to https you must disable this before as it will conflict
 
+### Installing datagateway to a VM
+
+```
+git clone https://github.com/ral-facilities/datagateway.git
+npm install -g yarn
+cd datagateway
+yarn install
+yarn datagateway-dataview
+```
+
+### Configuring datagateway
+```
+Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
+You can use preprod urls from here https://scigateway-preprod.esc.rl.ac.uk/plugins/datagateway-dataview/datagateway-dataview-settings.json
+Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
+```
+
 ### Installing datagateway api to a VM
 
 ```
@@ -167,23 +184,6 @@ poetry run python -m datagateway_api.src.main
 Please point this to an ICAT instance
 ```
 
-
-### Installing datagateway to a VM
-
-```
-git clone https://github.com/ral-facilities/datagateway.git
-npm install -g yarn
-cd datagateway
-yarn install
-yarn datagateway-dataview
-```
-
-### Configuring datagateway
-```
-Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
-You can use preprod urls from here https://scigateway-preprod.esc.rl.ac.uk/plugins/datagateway-dataview/datagateway-dataview-settings.json
-Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
-```
 
 ### Helpful Links
 ```
