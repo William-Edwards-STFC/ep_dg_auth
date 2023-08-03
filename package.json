@@ -1,8 +1,8 @@
 {
   "name": "ep_icat_auth",
-  "description": "Hooks into etherpad lite auth to provide ICAT+ authentication based on investigations",
-  "author": "Alejandro de Maria",
-  "version": "0.3.5",
+  "description": "Hooks into etherpad lite auth to provide datagateway authentication based on investigations",
+  "author": "William Edwards",
+  "version": "0.4.1",
   "license": "MIT",
   "repository": {
     "type": "git",

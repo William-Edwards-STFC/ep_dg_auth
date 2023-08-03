@@ -3,8 +3,7 @@
     {
       "name": "ep_icat_auth",
       "hooks": {
-        "authenticate": "ep_icat_auth/ep_icat_auth",
-        "authorize": "ep_icat_auth/ep_icat_auth"
+        "authenticate": "ep_icat_auth/ep_icat_auth"
       }
     }
   ]

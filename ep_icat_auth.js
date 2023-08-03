@@ -1,7 +1,3 @@
-// Copyright 2021 Alejandro de Maria <demariaa@esrf.fr>
-//
-// @License MIT
-
 const axios = require("axios-https-proxy-fix");
 var settings = require("ep_etherpad-lite/node/utils/Settings");
 
@@ -18,7 +14,8 @@ exports.authenticate = function (hook_name, context, cb) {
     cb,
   });
 
-  const { sessionID, padName, fullName } = context.req.query;
+  const { sessionID, padName, username } = context.req.query;
+  console.log(context);
 
   console.log(context.req.query);
   if (!sessionID) {
@@ -44,6 +41,11 @@ exports.authenticate = function (hook_name, context, cb) {
     .then((response) => {
       if (response.status == 200) {
         console.log("Authorized ");
+        context.req.session.user = {
+          username: "user",
+          sessionID: context.req.query.sessionID,
+          padName: context.req.query.padName
+        }
 
         return cb([true]);
       }
