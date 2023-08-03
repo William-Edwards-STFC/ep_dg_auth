@@ -36,9 +36,8 @@ Add to settings.json:
 ```
 "users": {
     "dgserver": {
-        "server": "https://datagateway.server.com"
-    },
-}
+        "server": "http://datagateway.server.com"
+    }
 Change authentication and authorization settings to true depending on which hooks you will be using.
 ```
 
