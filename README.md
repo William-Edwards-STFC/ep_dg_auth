@@ -163,4 +163,7 @@ If you are having trouble connecting make sure the ports are open and nginx is r
 sudo iptables -S | grep [port number]
 sudo systemctl status nginx
 ```
-
+### If you have to use openstacks console instead of SSH the following link will help you run tasks in the background so you can run dg. dg-api and etherpad all on the same VM.
+```
+https://www.baeldung.com/linux/detach-process-from-terminal
+```
