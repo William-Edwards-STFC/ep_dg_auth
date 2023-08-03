@@ -37,7 +37,7 @@ It is supposed to be used inside an iframe on the same site to use the Lax cooki
 
 # Etherpad 
 
-## Installation based on Ubunto 20
+## Installation based on Ubunto 20.04 Focal no gui
 
 Etherpad can be fully installed by doing the following:
 ```
