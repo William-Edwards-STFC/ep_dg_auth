@@ -58,6 +58,13 @@ It is supposed to be used inside an iframe on the same site to use the Lax cooki
 
 ## This is a guide for self signed certificates for developing
 
+Install nginx
+```
+sudo apt update
+sudo apt install nginx
+sudo ufw allow 'Nginx HTTP'
+```
+
 Generate private key
 
 ```
