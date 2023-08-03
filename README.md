@@ -137,3 +137,11 @@ Use this link to get the correct version of node https://learnubuntu.com/update-
 Reverse proxy help https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
 Etherpad documentation https://etherpad.org/doc/v1.3.0/#index_overview
 Installing postgresql on your developer instance https://louisroyer.github.io/tutorial/2019/09/12/migrate-etherpad-lite-dirtydb-to-postgres-debian-buster.html
+```
+### Troubleshooting
+If you are having trouble connecting make sure the ports are open and nginx is running
+```
+sudo iptables -S | grep [port number]
+sudo systemctl status nginx
+```
+
