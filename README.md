@@ -2,6 +2,17 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
+### Installing NVM, NPM and node.
+```
+We need to do this before etherpad so that we can install plugins.
+sudo apt update
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+Restart terminal or open a new one
+nvm --version       <------ Check that this returns a value before proceeding
+nvm install node
+node --version      <------ Check that this returns a value before proceeding
+```
+
 # Etherpad 
 
 ## Installation based on Ubunto 20.04 Focal no gui
