@@ -105,6 +105,7 @@ sudo iptables -A ufw-user-input -p tcp -m tcp --dport 3000 -j ACCEPT &&
 sudo iptables -A ufw-user-input -p udp -m udp --dport 3000 -j ACCEPT &&
 sudo iptables -A ufw-user-input -p tcp -m tcp --dport 9001 -j ACCEPT &&
 sudo iptables -A ufw-user-input -p udp -m udp --dport 9001 -j ACCEPT
+```
 
 Add the following server block:
 
