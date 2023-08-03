@@ -83,6 +83,15 @@ Please put your server IP in "Common Name" when asked everything else can be lef
 
 Replace /path/to/private.key, /path/to/certificate.csr, and /path/to/certificate.crt with appropriate file paths.
 
+Move the keys to nginx
+
+```
+cd /etc/nginx
+sudo mkdir keys
+sudo mv certificate.crt /etc/nginx/keys
+sudo mv private.key /etc/nginx/keys
+```
+
 Configure Nginx:
 
 Edit the Nginx configuration file, which is usually located at /etc/nginx/nginx.conf or in a separate file inside /etc/nginx/conf.d/ or /etc/nginx/sites-available/.
@@ -95,8 +104,8 @@ server {
     listen 443 ssl;
     server_name YOUR_SERVER_IP;  # Replace with your server's IP address
 
-    ssl_certificate /path/to/certificate.crt;
-    ssl_certificate_key /path/to/private.key;
+    ssl_certificate keys/certificate.crt;
+    ssl_certificate_key keys/private.key;
 
     location / {
         proxy_set_header Host $host;
