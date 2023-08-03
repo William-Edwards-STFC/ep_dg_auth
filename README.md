@@ -92,6 +92,7 @@ Move the keys to nginx
 ```
 cd /etc/nginx
 sudo mkdir keys
+cd ~/keys
 sudo mv certificate.crt /etc/nginx/keys
 sudo mv private.key /etc/nginx/keys
 ```
