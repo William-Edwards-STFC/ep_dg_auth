@@ -10,6 +10,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 Restart terminal or open a new one
 nvm --version       <------ Check that this returns a value before proceeding
 nvm install node
+nvm install 20
 node --version      <------ Check that this returns a value before proceeding
 ```
 
