@@ -80,7 +80,7 @@ Generate CSR (Certificate Signing Request) and Self-Signed Certificate
 ```
 sudo openssl req -new -key /path/to/private.key -out keys/certificate.csr
 
-sudo openssl x509 -req -days 365 -in /path/to/certificate.csr -signkey keys/private.key -out keys/certificate.crt
+sudo openssl x509 -req -days 365 -in keys/certificate.csr -signkey keys/private.key -out keys/certificate.crt
 
 Please put your server IP in "Common Name" when asked everything else can be left blank
 ```
