@@ -23,14 +23,6 @@ git clone --branch master https://github.com/ether/etherpad-lite.git &&
 cd etherpad-lite &&
 npm install --legacy-peer-deps ep_dg_auth ep_auth_session &&
 ./bin/run.sh
-
-```
-
-I did experience problems with the latest version of node. I work around the issue by installing the version 14.18.2 via nvm
-
-Use node version at least 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
-```
-nvm install 14.18.2
 ```
 
 ## Plugin installation
@@ -174,6 +166,7 @@ If you are having trouble connecting make sure the ports are open and nginx is r
 sudo iptables -S | grep [port number]
 sudo systemctl status nginx
 ```
+
 ### If you have to use openstacks console instead of SSH the following link will help you run tasks in the background so you can run dg. dg-api and etherpad all on the same VM.
 ```
 https://www.baeldung.com/linux/detach-process-from-terminal
