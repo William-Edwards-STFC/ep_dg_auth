@@ -70,6 +70,8 @@ Generate CSR (Certificate Signing Request) and Self-Signed Certificate
 openssl req -new -key /path/to/private.key -out /path/to/certificate.csr
 
 openssl x509 -req -days 365 -in /path/to/certificate.csr -signkey /path/to/private.key -out /path/to/certificate.crt
+
+Please put your server IP in "Common Name" when asked everything else can be left blank
 ```
 
 Replace /path/to/private.key, /path/to/certificate.csr, and /path/to/certificate.crt with appropriate file paths.
