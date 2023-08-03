@@ -37,7 +37,7 @@ It is supposed to be used inside an iframe on the same site to use the Lax cooki
 
 # Etherpad 
 
-## Installation
+## Installation based on Ubunto 20
 
 Etherpad can be fully installed by doing the following:
 ```
@@ -108,8 +108,10 @@ sudo systemctl restart nginx
 Save the configuration file and restart Nginx to apply the changes
 
 If you are using ssh through visual studio and have set the port forwarding protocol to https you must disable this before as it will conflict
+
+### Installing datagateway api to a VM
+
 ```
-Installing datagateway api
 git clone https://github.com/ral-facilities/datagateway-api.git
 curl https://pyenv.run | bash
 export PATH="~/.pyenv/bin:$PATH"
@@ -125,12 +127,29 @@ poetry install
 poetry run python -m datagateway_api.src.main
 ```
 
+### Configuring datagateway api
+
+```
+Please point this to an ICAT instance
+```
+
+
+### Installing datagateway to a VM
+
 ```
 git clone https://github.com/ral-facilities/datagateway.git
 sudo npm install -g yarn
 yarn install
 yarn datagateway-dataview
 ```
+
+### Configuring datagateway
+```
+Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
+You can use preprod urls from here https://scigateway-preprod.esc.rl.ac.uk/plugins/datagateway-dataview/datagateway-dataview-settings.json
+Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
+```
+
 ### Helpful Links
 ```
 Use this link to get the correct version of node https://learnubuntu.com/update-node-js/?utm_content=cmp-true
