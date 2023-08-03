@@ -1,10 +1,9 @@
 const axios = require("axios-https-proxy-fix");
 var settings = require("ep_etherpad-lite/node/utils/Settings");
 
-const { server } = settings.users.icat;
+const { server } = settings.users.dgserver;
 
 exports.authenticate = function (hook_name, context, cb) {
-  const { server } = settings.users.icat;
 
   console.log("Authentication", {
     hook_name,
