@@ -2,6 +2,25 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
+# Etherpad 
+
+## Installation based on Ubunto 20.04 Focal no gui
+
+Etherpad can be fully installed by doing the following:
+```
+git clone --branch master https://github.com/ether/etherpad-lite.git &&
+cd etherpad-lite &&
+npm install --legacy-peer-deps ep_dg_auth ep_auth_session &&
+./bin/run.sh
+
+```
+
+I did experience problems with the latest version of node. I work around the issue by installing the version 14.18.2 via nvm
+
+Use node version at least 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
+```
+nvm install 14.18.2
+```
 
 ## Plugin installation
 
@@ -35,25 +54,6 @@ It is supposed to be used inside an iframe on the same site to use the Lax cooki
               </div>
 ```
 
-# Etherpad 
-
-## Installation based on Ubunto 20.04 Focal no gui
-
-Etherpad can be fully installed by doing the following:
-```
-git clone --branch master https://github.com/ether/etherpad-lite.git &&
-cd etherpad-lite &&
-npm install --legacy-peer-deps ep_dg_auth ep_auth_session &&
-./bin/run.sh
-
-```
-
-I did experience problems with the latest version of node. I work around the issue by installing the version 14.18.2 via nvm
-
-Use node version at least 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
-```
-nvm install 14.18.2
-```
 ## This is a guide for self signed certificates for developing
 
 Generate private key
