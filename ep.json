@@ -1,9 +1,9 @@
 {
   "parts": [
     {
-      "name": "ep_icat_auth",
+      "name": "ep_dg_auth",
       "hooks": {
-        "authenticate": "ep_icat_auth/ep_icat_auth"
+        "authenticate": "ep_dg_auth/ep_dg_auth"
       }
     }
   ]

@@ -7,7 +7,7 @@ This plugin, based on the sessionId passed by query param, authenticates and aut
 
 In your etherpad-lite dir:
 
-    npm install ep_icat_auth
+    npm install ep_dg_auth
 
 Add to settings.json:
 
@@ -43,7 +43,7 @@ Etherpad can be fully installed by doing the following:
 ```
 git clone --branch master https://github.com/ether/etherpad-lite.git &&
 cd etherpad-lite &&
-npm install --legacy-peer-deps ep_icat_auth ep_auth_session &&
+npm install --legacy-peer-deps ep_dg_auth ep_auth_session &&
 ./bin/run.sh
 
 ```

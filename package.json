@@ -1,12 +1,12 @@
 {
-  "name": "ep_icat_auth",
+  "name": "ep_dg_auth",
   "description": "Hooks into etherpad lite auth to provide datagateway authentication based on investigations",
   "author": "William Edwards",
-  "version": "0.4.1",
+  "version": "0.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/William-Edwards-STFC/ep_icat_auth.git"
+    "url": "git+https://github.com/William-Edwards-STFC/ep_dg_auth.git"
   },
   "dependencies": {
     "axios": "0.18.1",
