@@ -2,6 +2,8 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
+npm install --global yarn
+
 ### Installing NVM, NPM and node.
 ```
 We need to do this before etherpad so that we can install plugins.
