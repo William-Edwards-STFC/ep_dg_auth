@@ -2,6 +2,32 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
+npm install --global yarn
+
+### Installing NVM, NPM and node.
+```
+We need to do this before etherpad so that we can install plugins.
+sudo apt update
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+Restart terminal or open a new one
+nvm --version       <------ Check that this returns a value before proceeding
+nvm install node
+nvm install 14
+nvm use 14
+node --version      <------ Check that this returns a value before proceeding
+```
+
+# Etherpad 
+
+## Installation based on Ubunto 20.04 Focal no gui
+
+Etherpad can be fully installed by doing the following:
+```
+git clone --branch master https://github.com/ether/etherpad-lite.git &&
+cd etherpad-lite &&
+npm install --legacy-peer-deps ep_dg_auth ep_auth_session &&
+./bin/run.sh
+```
 
 ## Plugin installation
 
@@ -14,9 +40,8 @@ Add to settings.json:
 ```
 "users": {
     "dgserver": {
-        "server": "https://datagateway.server.com"
-    },
-}
+        "server": "http://datagateway.server.com"
+    }
 Change authentication and authorization settings to true depending on which hooks you will be using.
 ```
 
@@ -35,46 +60,57 @@ It is supposed to be used inside an iframe on the same site to use the Lax cooki
               </div>
 ```
 
-# Etherpad 
-
-## Installation based on Ubunto 20
-
-Etherpad can be fully installed by doing the following:
-```
-git clone --branch master https://github.com/ether/etherpad-lite.git &&
-cd etherpad-lite &&
-npm install --legacy-peer-deps ep_dg_auth ep_auth_session &&
-./bin/run.sh
-
-```
-
-I did experience problems with the latest version of node. I work around the issue by installing the version 14.18.2 via nvm
-
-Use node version at least 12.22.12 with nvm otherwise it will fail to load lock files. https://www.javatpoint.com/install-nvm-ubuntu
-```
-nvm install 14.18.2
-```
 ## This is a guide for self signed certificates for developing
+
+Install nginx
+```
+sudo apt update
+sudo apt install nginx
+sudo ufw allow 'Nginx HTTP'
+```
 
 Generate private key
 
 ```
-openssl genpkey -algorithm RSA -out /path/to/private.key
+cd ~
+mkdir keys
+sudo openssl genpkey -algorithm RSA -out keys/private.key
 ```
 
 Generate CSR (Certificate Signing Request) and Self-Signed Certificate
 
 ```
-openssl req -new -key /path/to/private.key -out /path/to/certificate.csr
+sudo openssl req -new -key /path/to/private.key -out keys/certificate.csr
 
-openssl x509 -req -days 365 -in /path/to/certificate.csr -signkey /path/to/private.key -out /path/to/certificate.crt
+sudo openssl x509 -req -days 365 -in keys/certificate.csr -signkey keys/private.key -out keys/certificate.crt
+
+Please put your server IP in "Common Name" when asked everything else can be left blank
 ```
 
 Replace /path/to/private.key, /path/to/certificate.csr, and /path/to/certificate.crt with appropriate file paths.
 
+Move the keys to nginx
+
+```
+cd /etc/nginx
+sudo mkdir keys
+cd ~/keys
+sudo mv certificate.crt /etc/nginx/keys
+sudo mv private.key /etc/nginx/keys
+```
+
 Configure Nginx:
 
 Edit the Nginx configuration file, which is usually located at /etc/nginx/nginx.conf or in a separate file inside /etc/nginx/conf.d/ or /etc/nginx/sites-available/.
+
+```
+sudo iptables -A ufw-user-input -p tcp -m tcp --dport 443 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p udp -m udp --dport 443 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p tcp -m tcp --dport 3000 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p udp -m udp --dport 3000 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p tcp -m tcp --dport 9001 -j ACCEPT &&
+sudo iptables -A ufw-user-input -p udp -m udp --dport 9001 -j ACCEPT
+```
 
 Add the following server block:
 
@@ -84,8 +120,8 @@ server {
     listen 443 ssl;
     server_name YOUR_SERVER_IP;  # Replace with your server's IP address
 
-    ssl_certificate /path/to/certificate.crt;
-    ssl_certificate_key /path/to/private.key;
+    ssl_certificate keys/certificate.crt;
+    ssl_certificate_key keys/private.key;
 
     location / {
         proxy_set_header Host $host;
@@ -108,6 +144,23 @@ sudo systemctl restart nginx
 Save the configuration file and restart Nginx to apply the changes
 
 If you are using ssh through visual studio and have set the port forwarding protocol to https you must disable this before as it will conflict
+
+### Installing datagateway to a VM
+
+```
+git clone https://github.com/ral-facilities/datagateway.git
+npm install -g yarn
+cd datagateway
+yarn install
+yarn datagateway-dataview
+```
+
+### Configuring datagateway
+```
+Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
+You can use preprod urls from here https://scigateway-preprod.esc.rl.ac.uk/plugins/datagateway-dataview/datagateway-dataview-settings.json
+Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
+```
 
 ### Installing datagateway api to a VM
 
@@ -134,22 +187,6 @@ Please point this to an ICAT instance
 ```
 
 
-### Installing datagateway to a VM
-
-```
-git clone https://github.com/ral-facilities/datagateway.git
-sudo npm install -g yarn
-yarn install
-yarn datagateway-dataview
-```
-
-### Configuring datagateway
-```
-Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
-You can use preprod urls from here https://scigateway-preprod.esc.rl.ac.uk/plugins/datagateway-dataview/datagateway-dataview-settings.json
-Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
-```
-
 ### Helpful Links
 ```
 Use this link to get the correct version of node https://learnubuntu.com/update-node-js/?utm_content=cmp-true
@@ -164,3 +201,7 @@ sudo iptables -S | grep [port number]
 sudo systemctl status nginx
 ```
 
+### If you have to use openstacks console instead of SSH the following link will help you run tasks in the background so you can run dg. dg-api and etherpad all on the same VM.
+```
+https://www.baeldung.com/linux/detach-process-from-terminal
+```
