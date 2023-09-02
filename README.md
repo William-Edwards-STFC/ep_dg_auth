@@ -9,6 +9,11 @@ replace this line COPY config/datagateway-dataview-settings.json /usr/local/apac
 with COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/
 ```
 
+## Installation based on Ubunto 20.04 Focal no gui
+I tried to use centos 8 in the office with Patrick but I couldn't get nginx to work on it. This isn't to say that it won't work but the instructions listed here will not work with it.
+Due to an issue with etherpad as someone has pushed commits that break the use of plugins you will need to pull an older branch such as fix-admintests - I used this branch on 02/09/2023 and it was working.
+
+
 ## Reccommended setup
 
 After cloning etherpad you need to move the settings from this repository to the etherpad folder in your VM
@@ -32,8 +37,6 @@ npm install --global yarn
 ```
 
 # Etherpad 
-
-## Installation based on Ubunto 20.04 Focal no gui
 
 Etherpad can be fully installed by doing the following:
 ```
