@@ -185,6 +185,9 @@ To get this to work you will need to populate the database by running docker-com
 Expected results for a non-authenticated user
 ![image](https://github.com/William-Edwards-STFC/ep_dg_auth/assets/71259172/2bf2d2d7-033f-44b0-b3b9-c2f31164ef7d)
 
+### This is the end of the reccomended setup
+
+Below are notes on how you would do other components individually as well as trouble shooting, plugins and helpful links
 
 ### Installing datagateway api to a VM
 
