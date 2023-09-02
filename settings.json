@@ -464,6 +464,7 @@
     "dgserver": {
       "server": "http://172.16.112.249:5000"
       //"server": "http://localhost:8000"
+      // This value needs to be set to your datagateway server
     },
     "admin": {
       "is_admin": true,

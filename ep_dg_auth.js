@@ -102,6 +102,14 @@ exports.authorize = function (hook_name, context, cb) {
     })
     .then((response) => {
       if (response.status == 200) {
+        const responseData = response.data;
+        if(responseData.investigationUser.user.includes(context.req.session.user.username)){
+          if(responseData.investigationUser.role.includes("CI" || "PI")){
+            returncb([true]);
+          }
+          return cb([readOnly]);
+        }
+        if(responseData.role.includes("InstrumentScientist"))
         console.log("Authorized ");
 
         context.req.session.user = {
