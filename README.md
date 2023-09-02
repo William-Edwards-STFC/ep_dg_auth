@@ -2,12 +2,7 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
-```
-When using the docker setup you will need to edit the etherpad url and remove these lines from the dataview settings if you would like to change the datagateway branch
-RUN mv res plugins/datagateway-dataview
-replace this line COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/plugins/datagateway-dataview/
-with COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/
-```
+
 
 ## Installation based on Ubunto 20.04 Focal no gui
 I tried to use centos 8 in the office with Patrick but I couldn't get nginx to work on it. This isn't to say that it won't work but the instructions listed here will not work with it.
@@ -183,7 +178,13 @@ Please use the IP from your etherpad machine with https:// and without the port 
 Follow the instructions here https://github.com/icatproject-contrib/icat-cloud-native-migration you will need the icat db, icat, dg-api, scigateway-auth, auth
 To get this to work you will need to populate the database by running docker-compose up --build and then rebuilding the test container after it has run. For this to work you will need to comment out the health check on the mariadb container and the depends on part of the test data container.
 
-
+### Follow these steps to switch branch on docker
+```
+When using the docker setup you will need to edit the etherpad url and remove these lines from the dataview settings if you would like to change the datagateway branch
+RUN mv res plugins/datagateway-dataview
+replace this line COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/plugins/datagateway-dataview/
+with COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/
+```
 
 Expected results for a non-authenticated user
 ![image](https://github.com/William-Edwards-STFC/ep_dg_auth/assets/71259172/2bf2d2d7-033f-44b0-b3b9-c2f31164ef7d)
