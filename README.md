@@ -9,15 +9,13 @@ replace this line COPY config/datagateway-dataview-settings.json /usr/local/apac
 with COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/
 ```
 
-Expected results for a non-authenticated user
-![image](https://github.com/William-Edwards-STFC/ep_dg_auth/assets/71259172/2bf2d2d7-033f-44b0-b3b9-c2f31164ef7d)
-
-
 ## Reccommended setup
 
 After cloning etherpad you need to move the settings from this repository to the etherpad folder in your VM
 
 If the etherpad instance isn't put into the datagateway-dataview settings file as https:// it won't work.
+
+Please follow these steps in order
 
 ### Installing NVM, NPM and node.
 ```
@@ -183,6 +181,9 @@ Follow the instructions here https://github.com/icatproject-contrib/icat-cloud-n
 To get this to work you will need to populate the database by running docker-compose up --build and then rebuilding the test container after it has run.
 
 
+
+Expected results for a non-authenticated user
+![image](https://github.com/William-Edwards-STFC/ep_dg_auth/assets/71259172/2bf2d2d7-033f-44b0-b3b9-c2f31164ef7d)
 
 
 ### Installing datagateway api to a VM
