@@ -2,6 +2,14 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
+```
+When using the docker setup you will need to edit the etherpad url and remove these lines from the dataview settings
+RUN mv res plugins/datagateway-dataview
+replace this line COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/plugins/datagateway-dataview/
+with COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/
+```
+
+
 npm install --global yarn
 
 ### Installing NVM, NPM and node.
@@ -202,6 +210,18 @@ sudo systemctl status nginx
 ```
 
 ### If you have to use openstacks console instead of SSH the following link will help you run tasks in the background so you can run dg. dg-api and etherpad all on the same VM.
+
+
+###Plugins
+```
+ep_­spellcheck
+ep_­table_­of_­contents
+ep_­image_­upload
+ep_­adminpads2
+ep_­mammoth - Import word documents could be really useful
+ep_­print - Haven't tested enough
+```
+
 ```
 https://www.baeldung.com/linux/detach-process-from-terminal
 ```
