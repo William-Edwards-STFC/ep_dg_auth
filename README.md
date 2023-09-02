@@ -181,7 +181,7 @@ Please use the IP from your etherpad machine with https:// and without the port 
 
 ### Installing icat-cloud-native
 Follow the instructions here https://github.com/icatproject-contrib/icat-cloud-native-migration you will need the icat db, icat, dg-api, scigateway-auth, auth
-To get this to work you will need to populate the database by running docker-compose up --build and then rebuilding the test container after it has run.
+To get this to work you will need to populate the database by running docker-compose up --build and then rebuilding the test container after it has run. For this to work you will need to comment out the health check on the mariadb container and the depends on part of the test data container.
 
 
 
