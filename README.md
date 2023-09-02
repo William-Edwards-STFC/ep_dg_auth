@@ -3,7 +3,7 @@
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
 ```
-When using the docker setup you will need to edit the etherpad url and remove these lines from the dataview settings
+When using the docker setup you will need to edit the etherpad url and remove these lines from the dataview settings if you would like to change the datagateway branch
 RUN mv res plugins/datagateway-dataview
 replace this line COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/plugins/datagateway-dataview/
 with COPY config/datagateway-dataview-settings.json /usr/local/apache2/htdocs/
