@@ -148,7 +148,7 @@ server {
 }
 
 server {
-    listen 5020 ssl;
+    listen 80 ssl;
     server_name YOUR_SERVER_IP;  # Replace with your server's IP address
 
     ssl_certificate keys/certificate.crt;
@@ -157,7 +157,7 @@ server {
     location / {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-        proxy_pass http://127.0.0.1:5020;  # Replace with the Etherpad's actual listening address and port
+        proxy_pass http://127.0.0.1:5000;  # Replace with the Etherpad's actual listening address and port
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -194,22 +194,7 @@ Please use the IP from your etherpad machine with https:// and without the port 
 ```
 
 ### Installing datagateway api to a VM
-
-```
-git clone https://github.com/ral-facilities/datagateway-api.git
-curl https://pyenv.run | bash
-export PATH="~/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-sudo apt update
-sudo apt install build-essential zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev liblzma-dev libffi-dev findutils
-curl -sSL https://install.python-poetry.org | python3 -
-export PATH="~/.local/bin:$PATH"
-source ~/.bashrc
-Restart your terminal
-poetry install
-poetry run python -m datagateway_api.src.main
-```
+Follow the instructions https://github.com/ral-facilities/datagateway-api as the docker version won't work for what we want to do with etherpad
 
 ### Configuring datagateway api
 
