@@ -4,9 +4,8 @@ This plugin, based on the sessionId passed by query param, authenticates and aut
 
 
 
-## Installation based on Ubunto 20.04 Focal no gui
-I tried to use centos 8 in the office with Patrick but I couldn't get nginx to work on it. This isn't to say that it won't work but the instructions listed here will not work with it.
-Due to an issue with etherpad as someone has pushed commits that break the use of plugins you will need to pull an older branch such as fix-admintests - I used this branch on 02/09/2023 and it was working.
+## Installation based on Centos 8
+
 
 
 ## Reccommended setup
@@ -16,6 +15,8 @@ After cloning etherpad you need to move the settings from this repository to the
 If the etherpad instance isn't put into the datagateway-dataview settings file as https:// it won't work.
 
 Please follow these steps in order
+
+For this setup you need to install icat-cloud-native for icat, icatdb, scigateway auth and test data as well as setting up datagateway, scigateway and datagateway-api individually. If you setup dg-api through docker it will not work as you will not be able to use https.
 
 ### Installing NVM, NPM and node.
 ```
@@ -52,7 +53,7 @@ Add to settings.json:
 ```
 "users": {
     "dgserver": {
-        "server": "http://datagateway.server.com"
+        "server": "https://datagateway.server.com"
     }
 Change authentication and authorization settings to true depending on which hooks you will be using.
 ```
@@ -76,9 +77,19 @@ It is supposed to be used inside an iframe on the same site to use the Lax cooki
 
 Install nginx
 ```
-sudo apt update
-sudo apt install nginx
-sudo ufw allow 'Nginx HTTP'
+sudo yum search nginx
+sudo yum update
+sudo yum install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+sudo firewall-cmd --permanent --zone=public --add-service=https --add-service=http
+sudo firewall-cmd --permanent --add-port=5020/tcp
+sudo firewall-cmd --permanent --add-port=5020/udp
+sudo firewall-cmd --permanent --add-port=9001/tcp
+sudo firewall-cmd --permanent --add-port=9001/udp
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-services --zone=public  <----- Make sure you do this check as for some reason you may have to input the command a couple times
+sudo systemctl restart firewalld
 ```
 
 Generate private key
@@ -115,15 +126,6 @@ Configure Nginx:
 
 Edit the Nginx configuration file, which is usually located at /etc/nginx/nginx.conf or in a separate file inside /etc/nginx/conf.d/ or /etc/nginx/sites-available/.
 
-```
-sudo iptables -A ufw-user-input -p tcp -m tcp --dport 443 -j ACCEPT &&
-sudo iptables -A ufw-user-input -p udp -m udp --dport 443 -j ACCEPT &&
-sudo iptables -A ufw-user-input -p tcp -m tcp --dport 3000 -j ACCEPT &&
-sudo iptables -A ufw-user-input -p udp -m udp --dport 3000 -j ACCEPT &&
-sudo iptables -A ufw-user-input -p tcp -m tcp --dport 9001 -j ACCEPT &&
-sudo iptables -A ufw-user-input -p udp -m udp --dport 9001 -j ACCEPT
-```
-
 Add the following server block:
 
 
@@ -139,6 +141,23 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_pass http://127.0.0.1:9001;  # Replace with the Etherpad's actual listening address and port
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+
+server {
+    listen 5020 ssl;
+    server_name YOUR_SERVER_IP;  # Replace with your server's IP address
+
+    ssl_certificate keys/certificate.crt;
+    ssl_certificate_key keys/private.key;
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://127.0.0.1:5020;  # Replace with the Etherpad's actual listening address and port
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -162,20 +181,43 @@ If you are using ssh through visual studio and have set the port forwarding prot
 ```
 git clone https://github.com/ral-facilities/datagateway.git
 npm install -g yarn
-cd datagateway
+cd datagateway/packages/datagate-dataview
 yarn install
-yarn datagateway-dataview
+yarn serve:build
 ```
 
 ### Configuring datagateway
 ```
 Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
-You can use preprod urls from here https://scigateway-preprod.esc.rl.ac.uk/plugins/datagateway-dataview/datagateway-dataview-settings.json
-Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
+Please setup the URLs either from the docker or from datagateway-api that you've setup etc
+Please use the IP from your etherpad machine with https:// and without the port if you are using nginx```
+
+### Installing datagateway api to a VM
+
+```
+git clone https://github.com/ral-facilities/datagateway-api.git
+curl https://pyenv.run | bash
+export PATH="~/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+sudo apt update
+sudo apt install build-essential zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev liblzma-dev libffi-dev findutils
+curl -sSL https://install.python-poetry.org | python3 -
+export PATH="~/.local/bin:$PATH"
+source ~/.bashrc
+Restart your terminal
+poetry install
+poetry run python -m datagateway_api.src.main
+```
+
+### Configuring datagateway api
+
+```
+Please point this to an ICAT instance from your icat cloud native instance e.g. localhost:18181
 ```
 
 ### Installing icat-cloud-native
-Follow the instructions here https://github.com/icatproject-contrib/icat-cloud-native-migration you will need the icat db, icat, dg-api, scigateway-auth, auth
+Follow the instructions here https://github.com/icatproject-contrib/icat-cloud-native-migration you will need the icat db, icat, scigateway-auth, auth
 To get this to work you will need to populate the database by running docker-compose up --build and then rebuilding the test container after it has run. For this to work you will need to comment out the health check on the mariadb container and the depends on part of the test data container.
 
 ### Follow these steps to switch branch on docker
