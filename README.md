@@ -190,7 +190,8 @@ yarn serve:build
 ```
 Please head over to datagateway-dataview-settings.json and configure the IDS, API, downloadAPI and etherpad urls.
 Please setup the URLs either from the docker or from datagateway-api that you've setup etc
-Please use the IP from your etherpad machine with https:// and without the port if you are using nginx```
+Please use the IP from your etherpad machine with https:// and without the port if you are using nginx
+```
 
 ### Installing datagateway api to a VM
 
