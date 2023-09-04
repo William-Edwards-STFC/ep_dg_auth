@@ -2,10 +2,9 @@
 
 This plugin, based on the sessionId passed by query param, authenticates and authorizes an user.
 
-
+If you are running this plugin in develop line number 6 must not be commented out as your ssl certificates will be rejected.
 
 ## Installation based on Centos 8
-
 
 
 ## Reccommended setup
@@ -83,10 +82,14 @@ sudo yum install nginx
 sudo systemctl enable nginx
 sudo systemctl start nginx
 sudo firewall-cmd --permanent --zone=public --add-service=https --add-service=http
-sudo firewall-cmd --permanent --add-port=5020/tcp
-sudo firewall-cmd --permanent --add-port=5020/udp
+sudo firewall-cmd --permanent --add-port=5000/tcp
+sudo firewall-cmd --permanent --add-port=5000/udp
 sudo firewall-cmd --permanent --add-port=9001/tcp
 sudo firewall-cmd --permanent --add-port=9001/udp
+sudo firewall-cmd --permanent --add-port=5001/tcp
+sudo firewall-cmd --permanent --add-port=5001/udp
+sudo firewall-cmd --permanent --add-port=3000/tcp
+sudo firewall-cmd --permanent --add-port=3000/udp
 sudo firewall-cmd --reload
 sudo firewall-cmd --list-services --zone=public  <----- Make sure you do this check as for some reason you may have to input the command a couple times
 sudo systemctl restart firewalld
@@ -137,28 +140,42 @@ server {
     ssl_certificate keys/certificate.crt;
     ssl_certificate_key keys/private.key;
 
-    location / {
+    location /ether {
         proxy_set_header Host $host;
+        rewrite ^/ether/(.*) /$1 break;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_pass http://127.0.0.1:9001;  # Replace with the Etherpad's actual listening address and port
         proxy_http_version 1.1;
+        proxy_ssl_server_name on;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
-}
-
-server {
-    listen 80 ssl;
-    server_name YOUR_SERVER_IP;  # Replace with your server's IP address
-
-    ssl_certificate keys/certificate.crt;
-    ssl_certificate_key keys/private.key;
-
-    location / {
+    location /dg-api {
         proxy_set_header Host $host;
+        rewrite ^/dg-api(.*) /$1 break;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_pass http://127.0.0.1:5000;  # Replace with the Etherpad's actual listening address and port
         proxy_http_version 1.1;
+        proxy_ssl_server_name on;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+    location /dg {
+        proxy_set_header Host $host;
+        rewrite ^/dg(.*) /$1 break;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://127.0.0.1:5001;  # Replace with the Etherpad's actual listening address and port
+        proxy_http_version 1.1;
+        proxy_ssl_server_name on;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://127.0.0.1:3000;  # Replace with the Etherpad's actual listening address and port
+        proxy_http_version 1.1;
+        proxy_ssl_server_name on;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
